@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 from models.schemas import Product
 from models.schemas import Category
 
@@ -44,6 +44,8 @@ def get_product(product_id: int):
     for product in products:
         if(product.id == product_id):
             return product
-    return {"error" : "Product not found"} 
-# here if i retrun error in this format then it gives me internal server error
-# because pydantic expect response as in Product format here
+
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
