@@ -38,14 +38,14 @@ products = [
 def get_products():
     return products
 
-@router.get("/{product_id}", response_model=Product)
+@router.get("/{product_id}", response_model=Product, status_code=status.HTTP_200_OK)
 def get_product(product_id: int):
 
     for product in products:
         if(product.id == product_id):
             return product
 
-        raise HTTPException(
-            status_code=404,
-            detail="Product not found"
-        )
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail="Product not found"
+    )
