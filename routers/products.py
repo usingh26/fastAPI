@@ -49,3 +49,9 @@ def get_product(product_id: int):
         status_code=status.HTTP_404_NOT_FOUND,
         detail="Product not found"
     )
+
+@router.post("", response_model=Product, status_code=status.HTTP_201_CREATED)
+def get_product(product: Product):
+
+    products.append(product)
+    return product
